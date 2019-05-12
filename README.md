@@ -69,6 +69,46 @@ greater than on equal to the new or updated request's priority by one.
 
   Navigate to <http://localhost:5000> in your web browser to view the application.
 
+## How To Run The Application Inside A Docker Container
+
+### Install Docker and Docker Compose
+
+  Install [Docker](https://docs.docker.com/install) and [Docker Compose](https://docs.docker.com/compose/install).
+
+### Clone this repository
+
+  `git clone https://github.com/edkahara/britecore-implementation-test.git`
+
+### Change directories into your repository
+
+  `cd britecore-implementation-test`
+
+### Switch to the dockerization branch
+
+  `git checkout dockerization`
+
+### Set the environment variables
+
+  In the docker-compose.yml file, change the environment variables to suit your preferences. If you have PostgreSQL installed locally, change the db ports to 5433:5432.
+
+  In the create.sql file inside the db folder, ensure that the database names match the ones that you've set in the docker-compose.yml file.
+
+### Build the Docker image
+
+  `docker-compose build`
+
+### Run the application
+
+  `docker-compose up`
+
+  Navigate to <http://localhost:5000> in your web browser to view the application.
+
+### Test the application
+
+  While the application is running, open a new terminal in your repository and test the application.
+
+  `docker-compose exec web nosetests /app/tests/tests.py --with-coverage --cover-package=web`
+
 ## Tech Stack
 
 * Ubuntu 18.04
