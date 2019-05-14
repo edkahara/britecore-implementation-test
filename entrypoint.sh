@@ -14,4 +14,4 @@ python3 manage.py db migrate
 
 python3 manage.py db upgrade
 
-python3 run.py
+gunicorn -b 0.0.0.0:5000 manage:app

@@ -5,10 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - 5000:5000
+    expose:
+      - 5000
     environment:
-      - FLASK_APP=run.py
       - FLASK_ENV=production
       - SECRET_KEY=your_secret_key
       - APP_DATABASE=postgresql://postgres_username:postgres_password@db:5432/app_database_name
@@ -20,8 +19,18 @@ services:
     build:
       context: ./db
       dockerfile: Dockerfile
-    ports:
-      - 5432:5432
+    expose:
+      - 5432
     environment:
       - POSTGRES_USER=postgres_username
       - POSTGRES_PASSWORD=postgres_password
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - web
