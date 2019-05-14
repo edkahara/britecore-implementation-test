@@ -109,6 +109,61 @@ greater than on equal to the new or updated request's priority by one.
 
   `docker-compose exec web nosetests /app/tests/tests.py --with-coverage --cover-package=web`
 
+## How To Deploy The Application To An AWS EC2 Instance
+
+### Prepare your AWS account
+
+  Follow the instructions [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html) to sign up for AWS
+  (if necessary) and create an [IAM](https://aws.amazon.com/iam/) user (if necessary).
+
+  In the credentials file inside the .aws folder, add your IAM user's aws access key id and aws secret access key.
+
+### Install Docker Machine
+
+  Install [Docker Machine](https://docs.docker.com/machine/install-machine).
+
+### Clone this repository
+
+  `git clone https://github.com/edkahara/britecore-implementation-test.git`
+
+### Change directories into your repository
+
+  `cd britecore-implementation-test`
+
+### Switch to the deployment branch
+
+  `git checkout deployment`
+
+### Set the environment variables
+
+  In the docker-compose.yml file, change the environment variables to suit your preferences.
+
+  In the create.sql file inside the db folder, ensure that the database names match the ones that you've set in the docker-compose.yml file.
+
+### Create a Docker host with Docker Machine
+
+  `docker-machine create --driver amazonec2 --amazonec2-open-port 80 britecore-implementation-test`
+
+  By default, the amazonec2 region for your instance will be us-east-1 (N. Virginia). To use a different region run:
+
+  `docker-machine create --driver amazonec2 --amazonec2-open-port 80 --amazonec2-region your-amazonec2-region britecore-implementation-test`
+
+### Set the new host as the active host and point the Docker client at it
+
+  `docker-machine env britecore-implementation-test`
+
+  `eval $(docker-machine env britecore-implementation-test)`
+
+### Run the application
+
+  `docker-compose up`
+
+  Open a new terminal and grab the machine's IP.
+
+  `docker-machine ip britecore-implementation-test`
+
+  Navigate to <http://docker_machine_ip> in your web browser to view the application.
+
 ## Tech Stack
 
 * Ubuntu 18.04
@@ -118,6 +173,10 @@ greater than on equal to the new or updated request's priority by one.
 * SQLAlchemy
 * jQuery
 * Materialize CSS
+* Docker
+* AWS EC2
+* Gunicorn
+* Nginx
 
 # Author
 
