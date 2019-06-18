@@ -36,7 +36,7 @@ $(document).ready(function(){
           regex: "title cannot be blank"
         },
         description: {
-          required: "enter a description",
+          required: "enter the description",
           regex: "description cannot be blank"
         },
         clientId: {
