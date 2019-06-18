@@ -3,7 +3,7 @@
 This is a feature request app. It allows IWS staff to view, create, update and delete feature requests. This project fulfills the
 requirements listed on [PROJECT](https://github.com/edkahara/britecore-implementation-test/blob/master/PROJECT.md).
 
-## How it works
+## How It Works
 
 * Users can create feature requests by clicking on the NEW FEATURE REQUEST BUTTON.
 
