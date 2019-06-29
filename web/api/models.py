@@ -48,5 +48,5 @@ class Request(db.Model):
 
     def __repr__(self):
         return f"<Request(\
-            title='{self.title}',client='{self.client}',priority='{self.priority}'\
+            title='{self.title}',client='{self.clientId}',priority='{self.priority}'\
         )>"
