@@ -15,9 +15,9 @@ requirements listed on [PROJECT](https://github.com/edkahara/britecore-implement
 
 * Users can view all feature requests for each client sorted by priority on separate tables.
 
-* Feature requests for each client cannot share priorities. When a created or updated request's priority is similar to that of an existing
-request for a client, all of that client's priorities are re-ordered. This is done by incrementing each feature request that has a priority
-greater than on equal to the new or updated request's priority by one.
+* Feature requests for each client cannot share priorities. When a created or updated feature request's priority is similar to that of
+another existing feature request for a client, all of that client's priorities are re-ordered. This is done by incrementing each feature
+request that has a priority greater than on equal to the new or updated request's priority by one.
 
 ## How To Run The Application Locally
 
