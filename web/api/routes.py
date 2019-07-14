@@ -57,7 +57,7 @@ def create():
     productId = request.form.get("productId", None)
     targetDate = request.form.get("targetDate", None)
 
-    if priority_taken_for_client(clientId, priority):
+    if priority_taken_for_client_on_create(clientId, priority):
         reorder_priorities_for_client(clientId, priority)
 
     new_request = Request(
@@ -95,7 +95,7 @@ def update(id):
     productId = request.form.get("productId", None)
     targetDate = request.form.get("targetDate", None)
 
-    if priority_taken_for_client(clientId, priority):
+    if priority_taken_for_client_on_update(id, clientId, priority):
         reorder_priorities_for_client(clientId, priority)
 
     if feature_request.title != title:
@@ -138,15 +138,29 @@ def delete(id):
     return redirect("/")
 
 
-def priority_taken_for_client(client_id, new_priority):
+def priority_taken_for_client_on_create(client_id, new_priority):
     """
     Checks to see how many other feature requests for the same client
-    has the same priority. If at least one does, the priorities for that
+    have the same priority. If at least one does, the priorities for that
     client are re-ordered.
     """
 
     similar_priority_request = Request.query.filter(
         Request.clientId == client_id, Request.priority == new_priority
+    ).count()
+    return True if similar_priority_request else False
+
+
+def priority_taken_for_client_on_update(id, client_id, new_priority):
+    """
+    Checks to see how many other feature requests for the same client
+    have the same priority. If at least one does, the priorities for that
+    client are re-ordered.
+    """
+
+    similar_priority_request = Request.query.filter(
+        Request.id != id, Request.clientId == client_id,
+        Request.priority == new_priority
     ).count()
     return True if similar_priority_request else False
 
